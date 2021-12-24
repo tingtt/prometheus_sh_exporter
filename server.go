@@ -6,10 +6,22 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/mattn/go-pipeline"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, World!")
+	out, err := pipeline.Output(
+		[]string{"ls", "-t", os.Getenv("LS_PATH")},
+		[]string{"head", "-n1"},
+		[]string{"cut", "-f", "1", "-d", "_"},
+	)
+
+	if err != nil {
+		fmt.Fprintln(w, err.Error())
+		return
+	}
+
+	fmt.Fprintln(w, string(out))
 }
 
 func main() {
