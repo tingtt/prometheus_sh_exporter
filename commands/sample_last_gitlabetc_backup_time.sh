@@ -1,0 +1,1 @@
+ls -t /etc/gitlab/config_backup | head -n1 | cut -f 1 -d _

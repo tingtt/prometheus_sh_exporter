@@ -1,0 +1,1 @@
+ls -t /var/opt/gitlab/backups | head -n1 | cut -f 1 -d _

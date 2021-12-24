@@ -1,2 +1,4 @@
 linux-command-exporter
 .env*.local
+commands/*
+!commands/sample*.sh

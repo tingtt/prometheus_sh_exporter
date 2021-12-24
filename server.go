@@ -6,22 +6,33 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/mattn/go-pipeline"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	out, err := pipeline.Output(
-		[]string{"ls", "-t", os.Getenv("LS_PATH")},
-		[]string{"head", "-n1"},
-		[]string{"cut", "-f", "1", "-d", "_"},
-	)
 
+	data, err := loadYamlFile(os.Getenv("YAML_PATH"))
 	if err != nil {
-		fmt.Fprintln(w, err.Error())
+		fmt.Printf("%v\n", err)
+		os.Exit(1)
 		return
 	}
 
-	fmt.Fprintln(w, string(out))
+	metrics, err := yamlDataToStructArray(data)
+	if err != nil {
+		fmt.Printf("%v\n", err)
+		os.Exit(1)
+		return
+	}
+
+	for _, metric := range metrics {
+		metricStr, err := probe(metric)
+		if err != nil {
+			fmt.Printf("%v\n", err)
+			os.Exit(1)
+			return
+		}
+		fmt.Fprint(w, metricStr)
+	}
 }
 
 func main() {
