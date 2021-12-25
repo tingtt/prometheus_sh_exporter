@@ -2,18 +2,13 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/mattn/go-pipeline"
 )
 
 func probe(metric Metric) (string, error) {
-	command_dir_path := os.Getenv("COMMAND_DIR_PATH")
-	if command_dir_path[1:] != "/" {
-		command_dir_path += "/"
-	}
 	out, err := pipeline.Output(
-		[]string{"sh", command_dir_path + metric.Shfilename},
+		[]string{"sh", metric.Shpath},
 	)
 	if err != nil {
 		return "", err

@@ -1,16 +1,20 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"os"
+)
 
-	"github.com/joho/godotenv"
+var (
+	port        = flag.Int("port", 9923, "Server port")
+	cfgFilePath = flag.String("config.file", "/etc/prometheus/linuxsh.yml", "The path to configuration file.")
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
 
-	data, err := loadYamlFile(os.Getenv("YAML_PATH"))
+	data, err := loadYamlFile(*cfgFilePath)
 	if err != nil {
 		fmt.Printf("%v\n", err)
 		os.Exit(1)
@@ -36,17 +40,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		fmt.Printf("%v\n", err)
-	}
-
-	port := "9923"
-	if err == nil {
-		port = os.Getenv("PORT")
-	}
+	flag.Parse()
 
 	http.HandleFunc("/", handler)
-	fmt.Printf("Server started on http://localhost:%s\n", port)
-	http.ListenAndServe(":"+port, nil)
+	fmt.Printf("Server started on http://localhost:%d\n", *port)
+	http.ListenAndServe(fmt.Sprintf(":%d", *port), nil)
 }

@@ -1,11 +1,11 @@
 package main
 
 type Metric struct {
-	Name       string
-	Label      string
-	Shfilename string
-	Help       string
-	Type       string
+	Name   string
+	Label  string
+	Shpath string
+	Help   string
+	Type   string
 }
 
 type EtcYaml struct {

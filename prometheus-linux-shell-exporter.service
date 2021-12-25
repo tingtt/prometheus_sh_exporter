@@ -1,0 +1,13 @@
+[Unit]
+Description=Linux Shell Exporter
+Documentation=https://github.com/tingtt/prometheus-linux-shell-exporter
+After=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/prometheus-linux-shell-exporter
+ExecStop=/bin/kill -TERM ${MAINPID}
+ExecReload=/bin/kill -HUP ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
