@@ -21,6 +21,6 @@ install: prometheus-linux-shell-exporter
 	mkdir -p $(ETC_DIR) $(ETC_SH_DIR) $(BIN_DIR) $(SYSTEMD_UNIT_DIR)
 	cp prometheus-linux-shell-exporter.service $(SYSTEMD_UNIT_DIR)
 	systemctl daemon-reload
-	cp linuxsh.yml $(ETC_DIR)
-	cp ./commands/*.sh $(ETC_SH_DIR)
+	cp -n linuxsh.yml $(ETC_DIR)
+	cp -n ./commands/*.sh $(ETC_SH_DIR)
 	cp prometheus-linux-shell-exporter $(BIN_DIR)
