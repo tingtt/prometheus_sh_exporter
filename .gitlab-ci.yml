@@ -45,6 +45,9 @@ push-github:
     - sudo apt install -y openssh-client
     - eval "$(ssh-agent -s)"
     - echo "$GITHUB_SSH_SECRET" | tr -d '\r' | ssh-add -
-    - git remote add github "$GITHUB_REMOTE_URL"
+    - git config --local user.name "$GITHUB_USER"
+    - git config --local user.email "$GITHUB_EMAIL"
+    - git remote add github "$GITHUB_REMOTE_URL" || true
   script:
-    - git push github HEAD
+    - git branch main || git checkout main
+    - git push github main
