@@ -1,4 +1,4 @@
-module linux-command-exporter
+module prometheus-linux-shell-exporter
 
 go 1.17
 
