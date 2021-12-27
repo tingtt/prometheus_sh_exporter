@@ -1,3 +1,6 @@
 prometheus-linux-shell-exporter
+prometheus-linux-shell-exporter.exe
 commands/*
 !commands/sample*.sh
+packages
+.build.env

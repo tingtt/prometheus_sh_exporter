@@ -41,6 +41,7 @@ push-github:
   stage: delivery
   only:
     - main
+    - tags
   before_script:
     - sudo apt install -y openssh-client
     - eval "$(ssh-agent -s)"
