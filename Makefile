@@ -1,3 +1,7 @@
+GO			?= go
+GOOS		?= $(shell $(GO) env GOOS)
+GOARCH	?= $(shell $(GO) env GOARCH)
+
 all: build
 
 .PHONY: test
@@ -10,12 +14,12 @@ get: test
 
 .PHONY: build
 build: get
-	go build
+	GOOS=$(GOOS) GOARCH=$(GOARCH) $(GO) build
 
-ETC_DIR=/etc/prometheus/
-ETC_SH_DIR=/etc/prometheus/sh/
-SYSTEMD_UNIT_DIR=/lib/systemd/system/
-BIN_DIR=/usr/local/bin/
+ETC_DIR						?=/etc/prometheus-linux-shell-exporter
+ETC_SH_DIR				?=/etc/prometheus-linux-shell-exporter/sh
+SYSTEMD_UNIT_DIR	?=/lib/systemd/system
+BIN_DIR						?=/usr/local/bin
 .PHONY: install
 install: prometheus-linux-shell-exporter
 	mkdir -p $(ETC_DIR) $(ETC_SH_DIR) $(BIN_DIR) $(SYSTEMD_UNIT_DIR)
