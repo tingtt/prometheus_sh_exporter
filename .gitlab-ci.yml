@@ -50,4 +50,5 @@ push-github:
     - git remote add github "$GITHUB_REMOTE_URL" || true
   script:
     - git branch main || git checkout main
-    - git push github main
+    - git pull origin main -r
+    - git push github main -f
