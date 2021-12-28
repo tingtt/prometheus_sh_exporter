@@ -62,7 +62,7 @@ EXPOSE_PORT				?=9923
 .PHONY: install
 install: prometheus-linux-shell-exporter
 	mkdir -p $(ETC_DIR) $(ETC_SH_DIR) $(BIN_DIR) $(SYSTEMD_UNIT_DIR)
-	echo -e ETC_DIR=$(ETC_DIR)\nPORT=$(EXPOSE_PORT) > /etc/default/prometheus-linux-shell-exporter
+	printf 'ETC_DIR=$(ETC_DIR)\nPORT=$(EXPOSE_PORT)' > /etc/default/prometheus-linux-shell-exporter
 	cp prometheus-linux-shell-exporter.service $(SYSTEMD_UNIT_DIR)
 	systemctl daemon-reload
 	cp -n linuxsh.yml $(ETC_DIR) || true
