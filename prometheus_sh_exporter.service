@@ -1,0 +1,14 @@
+[Unit]
+Description=Sh Exporter
+Documentation=https://github.com/tingtt/prometheus_sh_exporter
+After=network-online.target
+
+[Service]
+EnvironmentFile=/etc/default/prometheus_sh_exporter
+ExecStart=/usr/local/bin/prometheus_sh_exporter -config.file ${ETC_DIR}/sh.yml -port ${PORT}
+ExecStop=/bin/kill -TERM ${MAINPID}
+ExecReload=/bin/kill -HUP ${MAINPID}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

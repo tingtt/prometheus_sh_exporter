@@ -1,4 +1,4 @@
-module prometheus-linux-shell-exporter
+module prometheus_sh_exporter
 
 go 1.17
 

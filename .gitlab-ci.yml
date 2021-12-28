@@ -5,7 +5,7 @@ stages:
 
 cache:
   paths:
-    - prometheus-linux-shell-exporter
+    - prometheus_sh_exporter
 
 build:
   stage: build
@@ -27,15 +27,15 @@ deploy:
     - eval "$(ssh-agent -s)"
     - echo "$DEPLOY_SSH_SECRET" | tr -d '\r' | ssh-add -
     - >
-      ssh "$DEPLOY_HOST_SSH_USER"@"$DEPLOY_HOST" -p "$DEPLOY_HOST_SSH_PORT" 'sudo systemctl stop prometheus-linux-shell-exporter.service || true &&
-        mkdir -p ~/prometheus-linux-shell-exporter &&
-        rm -rf ~/prometheus-linux-sell-exporter/*'
-    - scp -r -P "$DEPLOY_HOST_SSH_PORT" Makefile prometheus-linux-shell-exporter prometheus-linux-shell-exporter.service linuxsh.yml commands "$DEPLOY_HOST_SSH_USER"@"$DEPLOY_HOST":~/prometheus-linux-shell-exporter/
+      ssh "$DEPLOY_HOST_SSH_USER"@"$DEPLOY_HOST" -p "$DEPLOY_HOST_SSH_PORT" 'sudo systemctl stop prometheus_sh_exporter.service || true &&
+        mkdir -p ~/prometheus_sh_exporter &&
+        rm -rf ~/prometheus_sh_exporter/*'
+    - scp -r -P "$DEPLOY_HOST_SSH_PORT" Makefile prometheus_sh_exporter prometheus_sh_exporter.service sh.yml commands "$DEPLOY_HOST_SSH_USER"@"$DEPLOY_HOST":~/prometheus_sh_exporter/
   script:
     - >
-      ssh "$DEPLOY_HOST_SSH_USER"@"$DEPLOY_HOST" -p "$DEPLOY_HOST_SSH_PORT" 'cd ~/prometheus-linux-shell-exporter &&
+      ssh "$DEPLOY_HOST_SSH_USER"@"$DEPLOY_HOST" -p "$DEPLOY_HOST_SSH_PORT" 'cd ~/prometheus_sh_exporter &&
         sudo make install &&
-        sudo systemctl start prometheus-linux-shell-exporter.service'
+        sudo systemctl start prometheus_sh_exporter.service'
 
 push-github:
   stage: delivery

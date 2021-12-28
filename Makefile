@@ -18,26 +18,26 @@ build: get
 
 TAG	?=	$(shell git tag | tail -n1)
 .PHONY: package
-package: prometheus-linux-shell-exporter
-	mkdir -p ./packages/$(TAG)/linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH)
-	cp -r prometheus-linux-shell-exporter \
-		prometheus-linux-shell-exporter.service \
-		linuxsh.yml \
+package: prometheus_sh_exporter
+	mkdir -p ./packages/$(TAG)/prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH)
+	cp -r prometheus_sh_exporter \
+		prometheus_sh_exporter.service \
+		sh.yml \
 		commands \
 		Makefile \
 		LICENSE \
 		README.md \
-		./packages/$(TAG)/linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH)
+		./packages/$(TAG)/prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH)
 	if [ $$GOOS == 'windows' ] ; then \
-		cp prometheus-linux-shell-exporter.exe ./packages/$(TAG)/linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH) ; \
+		cp prometheus_sh_exporter.exe ./packages/$(TAG)/prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH) ; \
 	fi
 	cd ./packages/$(TAG) ; \
 	if [ $$GOOS == 'windows' ] ; then \
-		zip -r linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH).zip ./linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH) ; \
+		zip -r prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH).zip ./prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH) ; \
 	else \
-		tar cvf linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH).tar.gz ./linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH) ; \
+		tar cvf prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH).tar.gz ./prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH) ; \
 	fi ; \
-	rm -r ./linux_shell_expoter-$(TAG).$(GOOS)-$(GOARCH)
+	rm -r ./prometheus_sh_exoprter-$(TAG).$(GOOS)-$(GOARCH)
 
 .PHONY: package-all-with-build
 package-all-with-build: get
@@ -54,17 +54,17 @@ package-all-with-build: get
 	rm ./.build.env
 
 
-ETC_DIR						?=/etc/prometheus-linux-shell-exporter
-ETC_SH_DIR				?=/etc/prometheus-linux-shell-exporter/sh
+ETC_DIR						?=/etc/prometheus_sh_exporter
+ETC_SH_DIR				?=/etc/prometheus_sh_exporter/sh
 SYSTEMD_UNIT_DIR	?=/lib/systemd/system
 BIN_DIR						?=/usr/local/bin
 EXPOSE_PORT				?=9923
 .PHONY: install
-install: prometheus-linux-shell-exporter
+install: prometheus_sh_exporter
 	mkdir -p $(ETC_DIR) $(ETC_SH_DIR) $(BIN_DIR) $(SYSTEMD_UNIT_DIR)
-	printf 'ETC_DIR=$(ETC_DIR)\nPORT=$(EXPOSE_PORT)' > /etc/default/prometheus-linux-shell-exporter
-	cp prometheus-linux-shell-exporter.service $(SYSTEMD_UNIT_DIR)
+	printf 'ETC_DIR=$(ETC_DIR)\nPORT=$(EXPOSE_PORT)' > /etc/default/prometheus_sh_exporter
+	cp prometheus_sh_exporter.service $(SYSTEMD_UNIT_DIR)
 	systemctl daemon-reload
-	cp -n linuxsh.yml $(ETC_DIR) || true
+	cp -n sh.yml $(ETC_DIR) || true
 	cp -n ./commands/*.sh $(ETC_SH_DIR) || true
-	cp prometheus-linux-shell-exporter $(BIN_DIR)
+	cp prometheus_sh_exporter $(BIN_DIR)

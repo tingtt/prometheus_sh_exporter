@@ -1,4 +1,4 @@
-name: Prometheus Linux Shell Exporter
+name: Prometheus Sh Exporter
 
 on:
   push:

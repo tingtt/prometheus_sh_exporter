@@ -1,5 +1,5 @@
-prometheus-linux-shell-exporter
-prometheus-linux-shell-exporter.exe
+prometheus_sh_exporter
+prometheus_sh_exporter.exe
 commands/*
 !commands/sample*.sh
 packages

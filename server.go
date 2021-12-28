@@ -9,7 +9,7 @@ import (
 
 var (
 	port        = flag.Int("port", 9923, "Server port")
-	cfgFilePath = flag.String("config.file", "/etc/prometheus-linux-shell-exporter/linuxsh.yml", "The path to configuration file.")
+	cfgFilePath = flag.String("config.file", "/etc/prometheus_sh_exporter/sh.yml", "The path to configuration file.")
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
