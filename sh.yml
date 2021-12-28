@@ -1,11 +1,11 @@
 metrics:
   - name: last_backup_time
     label: gitlab
-    shpath: "/etc/prometheus/sh/sample_last_gitlab_backup_time.sh"
+    shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlab_backup_time.sh"
     help: "Unix time of last gitlab backup was made."
     type: gauge
   - name: last_backup_time
     label: gitlab-etc
-    shpath: "/etc/prometheus/sh/sample_last_gitlabetc_backup_time.sh"
+    shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlabetc_backup_time.sh"
     help: "Unix time of last gitlab-etc backup was made."
     type: gauge

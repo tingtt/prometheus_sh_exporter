@@ -1,5 +1,4 @@
-prometheus_sh_exporter
-prometheus_sh_exporter.exe
+.build
 commands/*
 !commands/sample*.sh
 packages
