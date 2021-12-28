@@ -16,7 +16,7 @@ get: test
 build: get
 	mkdir -p .build/$(GOOS)-$(GOARCH)/
 	GOOS=$(GOOS) GOARCH=$(GOARCH) $(GO) build
-	if [ $$GOOS == 'windows' ] ; then \
+	if [ $(GOOS) = "windows" ] ; then \
 		mv ./prometheus_sh_exporter.exe ./.build/$(GOOS)-$(GOARCH)/ ; \
 	else \
 		mv ./prometheus_sh_exporter ./.build/$(GOOS)-$(GOARCH)/ ; \
@@ -33,13 +33,13 @@ package:
 		LICENSE \
 		README.md \
 		./packages/$(TAG)/prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH)
-	if [ $$GOOS == 'windows' ] ; then \
+	if [ $(GOOS) = "windows" ] ; then \
 		cp ./.build/$(GOOS)-$(GOARCH)/prometheus_sh_exporter.exe ./packages/$(TAG)/prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH) ; \
 	else \
 		cp ./.build/$(GOOS)-$(GOARCH)/prometheus_sh_exporter ./packages/$(TAG)/prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH) ; \
 	fi
 	cd ./packages/$(TAG) ; \
-	if [ $$GOOS == 'windows' ] ; then \
+	if [ $(GOOS) = "windows" ] ; then \
 		zip -r prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH).zip ./prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH) ; \
 	else \
 		tar cvf prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH).tar.gz ./prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH) ; \
