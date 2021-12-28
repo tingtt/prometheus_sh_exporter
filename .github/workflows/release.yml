@@ -20,8 +20,10 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
       - name: Build and package
-        run: make package-all-with-build TAG=${{ github.ref }}
+        run: make package-all-with-build TAG=${GITHUB_REF##*/}
 
   delivery:
     needs: build
