@@ -52,4 +52,4 @@ push-github:
   script:
     - git branch main || git checkout main
     - git pull origin main -r
-    - git push github main -f
+    - git push github main -f --tags
