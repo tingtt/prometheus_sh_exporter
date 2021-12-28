@@ -47,7 +47,7 @@ package-all-with-build: get
 		echo $$line | cut -f 1 -d "/" >> ./.build.env ; \
 		printf GOARCH= >> ./.build.env ; \
 		echo $$line | cut -f 2 -d "/" >> ./.build.env ; \
-		source ./.build.env ; \
+		. ./.build.env ; \
 		make build GOOS=$$GOOS GOARCH=$$GOARCH ; \
 		make package GOOS=$$GOOS GOARCH=$$GOARCH ; \
 	done
