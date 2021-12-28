@@ -4,7 +4,7 @@ The linux shell exporter allows probing with shell scripts.
 
 ## Get started
 
-Download the most suitable binary from [the releases tab](/release).
+Download the most suitable binary from [the releases tab](https://github.com/tingtt/prometheus-linux-shell-exporter/releases).
 
 ### Run from binaries
 
