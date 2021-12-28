@@ -24,7 +24,7 @@ build: get
 
 TAG	?=	$(shell git tag | tail -n1)
 .PHONY: package
-package: ./.build/$(GOOS)-$(GOARCH)/prometheus_sh_exporter*
+package:
 	mkdir -p ./packages/$(TAG)/prometheus_sh_exporter-$(TAG).$(GOOS)-$(GOARCH)
 	cp -r prometheus_sh_exporter.service \
 		sh.yml \
