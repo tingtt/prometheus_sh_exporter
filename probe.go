@@ -24,7 +24,7 @@ func probe(metric Metric) (string, error) {
 		metricStr += fmt.Sprintf("# TYPE %s %s\n", metric.Name, metric.Type)
 	}
 
-	metricStr += fmt.Sprintf("%s{label=%s} %s", metric.Name, metric.Label, string(out))
+	metricStr += fmt.Sprintf("%s{label=\"%s\"} %s", metric.Name, metric.Label, string(out))
 
 	return metricStr, nil
 }
