@@ -42,7 +42,7 @@ jobs:
       - run: |
           set -x
           assets=()
-          for asset in ./packages/${GITHUB_REF##*/}/*; do
+          for asset in ./packages/${GITHUB_REF##*/}/*.tar.gz ./packages/${GITHUB_REF##*/}/*.tar.gz ; do
             assets+=("-a" "$asset")
           done
           tag_name="${GITHUB_REF##*/}"
