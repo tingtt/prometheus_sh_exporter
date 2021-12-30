@@ -82,8 +82,10 @@ install: ./.build/$(GOOS)-$(GOARCH)/prometheus_sh_exporter
 
 .PHONY: uninstall
 uninstall:
+	-systemctl stop prometheus_sh_exporter.service
 	-rm -r SYSTEMD_UNIT_DIR/prometheus_sh_exporter.service BIN_DIR/prometheus_sh_exporter
 
 .PHONY: purge
 purge:
+	-systemctl stop prometheus_sh_exporter.service
 	-rm -r SYSTEMD_UNIT_DIR/prometheus_sh_exporter.service BIN_DIR/prometheus_sh_exporter ETC_DIR
