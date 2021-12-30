@@ -79,3 +79,11 @@ install: ./.build/$(GOOS)-$(GOARCH)/prometheus_sh_exporter
 	cp -n sh.yml $(ETC_DIR) || true
 	cp -n ./commands/*.sh $(ETC_SH_DIR) || true
 	cp ./.build/$(GOOS)-$(GOARCH)/prometheus_sh_exporter $(BIN_DIR)
+
+.PHONY: uninstall
+uninstall:
+	-rm -r SYSTEMD_UNIT_DIR/prometheus_sh_exporter.service BIN_DIR/prometheus_sh_exporter
+
+.PHONY: purge
+purge:
+	-rm -r SYSTEMD_UNIT_DIR/prometheus_sh_exporter.service BIN_DIR/prometheus_sh_exporter ETC_DIR
