@@ -32,15 +32,20 @@ Example config:
 ```yaml
 metrics:
   - name: last_backup_time # Metric name
-    label: gitlab # Metric label
-    shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlab_backup_time.sh" # Absolute path to shell script file
     help: "Unix time of last gitlab backup was made." # Metric help message
     type: gauge # Metric type
-  - name: last_backup_time
-    label: gitlab-etc
-    shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlabetc_backup_time.sh"
-    help: "Unix time of last gitlab-etc backup was made."
-    type: gauge
+    probes:
+      # last_backup_time{target="gitlab"}
+      - shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlab_backup_time.sh" # Absolute path to shell script file
+        labels: # Metric labels
+          - name: "target"
+            value: "gitlab"
+
+      # last_backup_time{target="gitlab-etc"}
+      - shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlabetc_backup_time.sh"
+        labels:
+          - name: "target"
+            value: "gitlab-etc"
 ```
 
 ```bash
@@ -51,8 +56,6 @@ curl localhost:9923/metrics
 # HELP last_backup_time Unix time of last gitlab backup was made.
 # TYPE last_backup_time gauge
 last_backup_time{label="gitlab"} ...
-# HELP last_backup_time Unix time of last gitlab-etc backup was made.
-# TYPE last_backup_time gauge
 last_backup_time{label="gitlab-etc"} ...
 ```
 
