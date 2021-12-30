@@ -7,13 +7,6 @@ import (
 )
 
 func probe(metric Metric) (string, error) {
-	out, err := pipeline.Output(
-		[]string{"sh", metric.Shpath},
-	)
-	if err != nil {
-		return "", err
-	}
-
 	metricStr := ""
 
 	if metric.Help != "" {
@@ -24,7 +17,23 @@ func probe(metric Metric) (string, error) {
 		metricStr += fmt.Sprintf("# TYPE %s %s\n", metric.Name, metric.Type)
 	}
 
-	metricStr += fmt.Sprintf("%s{label=\"%s\"} %s", metric.Name, metric.Label, string(out))
+	for _, probe := range metric.Probes {
+		out, err := pipeline.Output(
+			[]string{"sh", probe.Shpath},
+		)
+		if err != nil {
+			return "", err
+		}
+
+		metricStr += metric.Name + "{"
+
+		for _, label := range probe.Labels {
+			metricStr += fmt.Sprintf("%s=\"%s\",", label.Name, label.Value)
+		}
+		metricStr = metricStr[:len(metricStr)-1]
+
+		metricStr += fmt.Sprintf("} %s", string(out))
+	}
 
 	return metricStr, nil
 }
