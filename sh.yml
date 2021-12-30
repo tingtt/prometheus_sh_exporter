@@ -10,7 +10,7 @@ metrics:
             value: "gitlab"
 
       # last_backup_time{target="gitlab-etc"}
-      - shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlab_backupetc_time.sh"
+      - shpath: "/etc/prometheus_sh_exporter/sh/sample_last_gitlabetc_backup_time.sh"
         labels:
           - name: "target"
             value: "gitlab-etc"

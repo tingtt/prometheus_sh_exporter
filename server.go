@@ -12,7 +12,11 @@ var (
 	cfgFilePath = flag.String("config.file", "/etc/prometheus_sh_exporter/sh.yml", "The path to configuration file.")
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func root(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, rootPage())
+}
+
+func metrics(w http.ResponseWriter, r *http.Request) {
 
 	data, err := loadYamlFile(*cfgFilePath)
 	if err != nil {
@@ -42,7 +46,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	flag.Parse()
 
-	http.HandleFunc("/", handler)
+	http.HandleFunc("/", root)
+	http.HandleFunc("/metrics", metrics)
 	fmt.Printf("Server started on http://localhost:%d\n", *port)
 	http.ListenAndServe(fmt.Sprintf(":%d", *port), nil)
 }
